@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ZipForm from './ZipForm';
 
 class App extends Component{
   constructor(props) {
@@ -10,6 +11,7 @@ class App extends Component{
       <div className="row">
         <div className="small-9 small-centered columns">
           <h1>Zip Code Form</h1>
+          <ZipForm/>
         </div>
       </div>
     )
