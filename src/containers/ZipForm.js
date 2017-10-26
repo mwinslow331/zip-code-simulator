@@ -8,11 +8,20 @@ class ZipForm extends Component {
       zipCode: '',
       errors: {}
     }
-    this.handleFormSubmit=this.handleFormSubmit.bind(this);
+    this.handleSubmit=this.handleSubmit.bind(this);
+    this.handleClearForm=this.handleClearForm.bind(this);
   }
 
-  handleFormSubmit(event){
+  handleSubmit(event){
 
+  }
+
+  handleClearForm(event){
+    event.preventDefault();
+    this.setState({
+      errors: {},
+      zipCode: ''
+    })
   }
 
   render(){
@@ -31,13 +40,19 @@ class ZipForm extends Component {
           content={this.state.zipCode}
           label='Zip Code'
           name='zipCode'
+          onChange={this.handleSubmit}
         />
 
         <TextField
           content={this.state.zipCode}
           label='Zip Code'
           name='zipCode'
+          onChange={this.handleSubmit}
         />
+        <div className="button-group">
+          <button className="button" onClick={this.handleClearForm}>Clear</button>
+          <input className="button" type="submit" value="Submit" />
+        </div>
       </form>
     )
   }
