@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
 
-const TextField = props => (
+const TextField = props => {
   return(
     <div className="zip-code-field">
-      <label>
+      <label>{props.label}
         <input
+          name={props.name}
+          onChange={props.handleChange}
           type='text'
+          value={props.content}
         />
       </label>
     </div>
-  )
-)
+  );
+}
 
 export default TextField;
