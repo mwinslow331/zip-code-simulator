@@ -6,11 +6,13 @@ class ZipForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      zipCode: '',
+      zipStartingCode: '',
+      zipDestinationCode: '',
       errors: {},
       value: ''
     }
-    this.handleChange=this.handleChange.bind(this);
+    this.handleStartingChange=this.handleStartingChange.bind(this);
+    this.handleDestinationChange=this.handleDestinationChange.bind(this);
     this.handleSubmit=this.handleSubmit.bind(this);
     this.handleClearForm=this.handleClearForm.bind(this);
     this.validateZipCode=this.validateZipCode.bind(this);
@@ -29,10 +31,16 @@ class ZipForm extends Component {
     }
   }
 
-  handleChange(event) {
+  handleStartingChange(event) {
     event.preventDefault();
     this.validateZipCode(event.target.value);
-    this.setState({zipCode: event.target.value});
+    this.setState({zipStartingCode: event.target.value});
+  }
+
+  handleDestinationChange(event) {
+    event.preventDefault();
+    this.validateZipCode(event.target.value);
+    this.setState({zipDestinationCode: event.target.value});
   }
 
   handleClearForm(event){
@@ -71,19 +79,19 @@ class ZipForm extends Component {
         {errorDiv}
         <TextField
           content={this.state.zipCode}
-          label='Zip Code'
+          label='Starting Point'
           value={this.state.value}
           name='zip-code'
-          handleChange={this.handleChange}
+          handleStartingChange={this.handleStartingChange}
         />
 
         {errorDiv}
         <TextField
           content={this.state.zipCode}
-          label='Zip Code'
+          label='Destination'
           value={this.state.value}
           name='zip-code'
-          handleChange={this.handleChange}
+          handleDestinationChange={this.handleDestinationChange}
         />
         <div className="button-group">
           <button className="button" onClick={this.handleClearForm}>Clear</button>
