@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import TextField from '../components/TextField';
 import { Button, Form } from 'antd';
+import '../App.css';
+
 
 class ZipForm extends Component {
   constructor(props) {
@@ -47,14 +49,15 @@ class ZipForm extends Component {
     event.preventDefault();
     this.setState({
       errors: {},
-      zipCode: '',
+      zipStartingCode: '',
+      zipDestinationCode: '',
       value: ''
     })
   }
 
   validateZipCode(code){
-    if (code === '' || code === ' ') {
-      let newError = { zipCode: 'You must enter a Zip Code.' }
+    if (code === '' || code === ' ' || code != /^\d{5}$/) {
+      let newError = { zipCode: 'You must enter a valid Zip Code.' }
       this.setState({ errors: Object.assign(this.state.errors, newError) })
       return false
     } else {
@@ -94,8 +97,11 @@ class ZipForm extends Component {
           handleDestinationChange={this.handleDestinationChange}
         />
         <div className="button-group">
-          <button className="button" onClick={this.handleClearForm}>Clear</button>
-          <Button type="primary">Enter</Button>
+          <Form.Item>
+            <Button type="primary">Get Distance</Button>
+          <span></span>
+            <Button className="button" onClick={this.handleClearForm}>Clear</Button>
+          </Form.Item>
         </div>
       </form>
     )
