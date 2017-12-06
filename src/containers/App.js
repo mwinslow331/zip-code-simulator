@@ -1,17 +1,23 @@
 import React, { Component } from 'react';
 import ZipForm from './ZipForm';
+import ZipsList from '../components/ZipsList';
 
 class App extends Component{
   constructor(props) {
     super(props);
     this.state = {
-      zipCode: []
+      startZips: [],
+      endZips: []
     }
-    this.enterZipCode=this.enterZipCode.bind(this);
+    this.enterStartingZipCode=this.enterStartingZipCode.bind(this);
+    this.enterDestinationZipCode=this.enterDestinationZipCode.bind(this);
   }
 
-  enterZipCode(enter) {
-    this.setState({zipCode: this.state.zipCode.concat(enter) })
+  enterStartingZipCode(start){
+    this.setState({startZips: this.state.startZips.concat(start) })
+  }
+  enterDestinationZipCode(destination){
+    this.setState({endZips: this.state.endZips.concat(destination) })
   }
 
   render() {
@@ -19,7 +25,14 @@ class App extends Component{
       <div className="row">
         <div className="small-9 small-centered columns">
           <h1 className="form-title">Zip Code Form</h1>
-          <ZipForm enterZipCode={this.state.enterZipCode}/>
+          <ZipForm
+            enterStartingZipCode={this.enterStartingZipCode}
+            enterDestinationZipCode={this.enterDestinationZipCode}
+          />
+          <ZipsList
+            startZips={this.state.startZips}
+            endZips={this.state.endZips}
+          />
         </div>
       </div>
     )
