@@ -1,30 +1,35 @@
 import React, { Component } from 'react';
-import TextField from '../components/TextField';
+import ZipStartingField from '../components/ZipStartingField';
+import ZipDestinationField from '../components/ZipDestinationField';
 import { Button, Form } from 'antd';
+import '../App.css';
+
 
 class ZipForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      zipStartingCode: '',
-      zipDestinationCode: '',
-      errors: {},
-      value: ''
-    }
-    this.handleStartingChange=this.handleStartingChange.bind(this);
-    this.handleDestinationChange=this.handleDestinationChange.bind(this);
-    this.handleSubmit=this.handleSubmit.bind(this);
-    this.handleClearForm=this.handleClearForm.bind(this);
-    this.validateZipCode=this.validateZipCode.bind(this);
+constructor(props) {
+  super(props);
+  this.state = {
+    errors: {},
+    zipStartingCode: '',
+    zipDestinationCode: '',
+    value: ''
+  }
+    this.handleStartingChange = this.handleStartingChange.bind(this);
+    this.handleDestinationChange = this.handleDestinationChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleClearForm = this.handleClearForm.bind(this);
+    this.validateZipCode = this.validateZipCode.bind(this);
   }
 
   handleSubmit(event){
     event.preventDefault();
     if (
-      this.validateZipCode(this.state.zipCode)
+      this.validateZipCode(this.state.zipStartingCode),
+      this.validateZipCode(this.state.zipDestinationCode)
     ) {
       let formPayload = {
-        zip: this.state.zipCode
+        startZip: this.state.handleStartingChange,
+        endZip: this.state.handleDestinationChange
       };
       this.props.enterZipCode(formPayload);
       this.handleClearForm(event);
@@ -33,13 +38,13 @@ class ZipForm extends Component {
 
   handleStartingChange(event) {
     event.preventDefault();
-    this.validateZipCode(event.target.value);
+    // this.validateZipCode(event.target.value);
     this.setState({zipStartingCode: event.target.value});
   }
 
   handleDestinationChange(event) {
     event.preventDefault();
-    this.validateZipCode(event.target.value);
+    // this.validateZipCode(event.target.value);
     this.setState({zipDestinationCode: event.target.value});
   }
 
@@ -47,14 +52,15 @@ class ZipForm extends Component {
     event.preventDefault();
     this.setState({
       errors: {},
-      zipCode: '',
+      zipStartingCode: '',
+      zipDestinationCode: '',
       value: ''
     })
   }
 
   validateZipCode(code){
-    if (code === '' || code === ' ') {
-      let newError = { zipCode: 'You must enter a Zip Code.' }
+    if (code === '' || code !== /^\d{5}$/) {
+      let newError = { zipCode: 'You must enter a valid Zip Code.' }
       this.setState({ errors: Object.assign(this.state.errors, newError) })
       return false
     } else {
@@ -77,25 +83,27 @@ class ZipForm extends Component {
     return(
       <form className="zip-field" onSubmit={this.handleSubmit}>
         {errorDiv}
-        <TextField
-          content={this.state.zipCode}
+        <ZipStartingField
+          content={this.state.zipStartingCode}
           label='Starting Point'
-          value={this.state.value}
+          value={this.state.zipStartingCode}
           name='zip-code'
           handleStartingChange={this.handleStartingChange}
         />
 
         {errorDiv}
-        <TextField
-          content={this.state.zipCode}
+        <ZipDestinationField
+          content={this.state.zipDestinationCode}
           label='Destination'
-          value={this.state.value}
+          value={this.state.zipDestinationCode}
           name='zip-code'
           handleDestinationChange={this.handleDestinationChange}
         />
         <div className="button-group">
-          <button className="button" onClick={this.handleClearForm}>Clear</button>
-          <Button type="primary">Enter</Button>
+          <Form.Item>
+            <Button type="primary">Get Distance</Button>
+            <Button className="button" id="clear" onClick={this.handleClearForm}>Clear</Button>
+          </Form.Item>
         </div>
       </form>
     )
