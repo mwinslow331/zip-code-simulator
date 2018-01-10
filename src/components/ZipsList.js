@@ -3,12 +3,12 @@ import React from 'react';
 const ZipsList = props => {
   let startZipCode = props.startZips.map(starting => {
     return(
-      <li>{starting.startZip}</li>
+      <li key={starting.startZip}>{starting.startZip}</li>
     )
   });
   let destinationZip = props.endZips.map(ending => {
     return(
-      <li>{ending.endZip}</li>
+      <li key={ending.endZip}>{ending.endZip}</li>
     )
   });
 
