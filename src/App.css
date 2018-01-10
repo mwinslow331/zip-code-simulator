@@ -2,6 +2,8 @@
 
 .App {
   text-align: center;
+  background-color: #FDF8EA;
+  background-size: 100%;
 }
 
 .App-logo {
@@ -19,6 +21,12 @@
 .App-title {
   font-size: 4.5em;
   color: #F28033;
+  font-style: italic;
+}
+
+.App-code-title {
+  color: #F28033;
+  font-weight: bold;
 }
 
 .App-intro {

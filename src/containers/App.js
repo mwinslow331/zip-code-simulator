@@ -22,17 +22,21 @@ class App extends Component{
 
   render() {
     return (
-      <div className="row">
+      <div className="App">
         <div className="small-9 small-centered columns">
-          <h1 className="form-title">Zip Code Form</h1>
-          <ZipForm
-            enterStartingZipCode={this.enterStartingZipCode}
-            enterDestinationZipCode={this.enterDestinationZipCode}
-          />
-          <ZipsList
-            startZips={this.state.startZips}
-            endZips={this.state.endZips}
-          />
+          <h1 className="App-title">Zip Code Form</h1>
+            <div className="App-code-title">
+              <ZipForm
+                enterStartingZipCode={this.enterStartingZipCode}
+                enterDestinationZipCode={this.enterDestinationZipCode}
+              />
+            </div>
+            <div className="App-code-title">
+              <ZipsList
+                startZips={this.state.startZips}
+                endZips={this.state.endZips}
+              />
+            </div>
         </div>
       </div>
     )

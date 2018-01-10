@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ZipStartingField from '../components/ZipStartingField';
 import ZipDestinationField from '../components/ZipDestinationField';
-import { Button, Form} from 'antd';
+import { Button, Form, Row, Col} from 'antd';
 import '../App.css';
 
 
@@ -61,7 +61,7 @@ constructor(props) {
   }
 
   validateStartCode(startCode){
-    if (startCode === '' || startCode === '') {
+    if (startCode === '' || startCode === '' || startCode.length !== 5) {
       let newError = { zipStartingCode: 'You must enter a valid Zip Code.' }
       this.setState({ errors: Object.assign(this.state.errors, newError) })
       return false
@@ -73,7 +73,7 @@ constructor(props) {
     }
   }
   validateDestinationCode(endCode){
-    if (endCode === '' || endCode === '') {
+    if (endCode === '' || endCode === '' || endCode.length !== 5) {
       let newError = { zipDestinationCode: 'You must enter a valid Zip Code.' }
       this.setState({ errors: Object.assign(this.state.errors, newError) })
       return false
@@ -96,21 +96,26 @@ constructor(props) {
     }
     return(
       <Form className="zip-field" onSubmit={this.handleSubmit}>
-        {errorDiv}
-        <ZipStartingField
-          content={this.state.zipStartingCode}
-          label='Starting Point'
-          name='start-zip-code'
-          handleStartingChange={this.handleStartingChange}
-        />
-
-        {errorDiv}
-        <ZipDestinationField
-          content={this.state.zipDestinationCode}
-          label='Destination'
-          name='destination-zip-code'
-          handleDestinationChange={this.handleDestinationChange}
-        />
+        <Row>
+          <Col span={12}>
+            {errorDiv}
+            <ZipStartingField
+              content={this.state.zipStartingCode}
+              label='Starting Point'
+              name='start-zip-code'
+              handleStartingChange={this.handleStartingChange}
+            />
+          </Col>
+          <Col span={12}>
+            {errorDiv}
+            <ZipDestinationField
+              content={this.state.zipDestinationCode}
+              label='Destination'
+              name='destination-zip-code'
+              handleDestinationChange={this.handleDestinationChange}
+            />
+          </Col>
+        </Row>
         <div className="button-group">
           <Form.Item>
             <Button type="primary" htmlType="submit" value="Submit">Get Distance</Button>

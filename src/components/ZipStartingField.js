@@ -4,11 +4,11 @@ const ZipStartingField = props => {
   return(
     <div className="zip-code-field">
       <label>{props.label}
-        <input
-          onChange={props.handleStartingChange}
-          type='text'
-          value={props.content}
-        />
+          <input
+            onChange={props.handleStartingChange}
+            type='text'
+            value={props.content}
+          />
       </label>
     </div>
   );
